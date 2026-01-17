@@ -8,9 +8,6 @@ import { ProductProvider } from './contextApi/ProductContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <BrowserRouter> 
-  {/* <ProductProvider> */}
-    <App/>
-  {/* </ProductProvider> */} 
   <ProductProvider>
     <App />
   </ProductProvider> 
