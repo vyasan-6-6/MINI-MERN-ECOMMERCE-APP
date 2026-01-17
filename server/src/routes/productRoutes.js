@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Product = require("../model/productModel");
+const { upload } = require('../config/multerConfig');
 
  //get all products 
 
  router.get("/",async(req,res)=>{
     try {
-        const products = Product.find();
+        const products = await Product.find();
         res.json(products);
     } catch (error) {
         res.status(500).json({message:error.message});
@@ -35,10 +36,13 @@ const Product = require("../model/productModel");
 
  //post product
 
- router.post("/",async(req,res)=>{
+ router.post("/",upload.array("image"),async(req,res)=>{
     try {
-        const product  = new Product(req.body);
-        const saveProduct = await  product.save();
+        const product  = new Product({...req.body
+        ,image:req.file? `/uploads/${req.file.filename}` :""
+        });
+      await  product.save();
+      res.json(product)
     } catch (error) {
         res.status(400).json({message:error.message})
     }

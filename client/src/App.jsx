@@ -1,8 +1,8 @@
  
-import { Route, Routes } from "react-router-dom"
-import Products from "./pages/Products"
+import { Route, Routes } from "react-router-dom" 
 import AddProduct from "./pages/AddProduct"  
 import Navbar from "./components/Navbar"
+import ProductList from "./pages/ProductList"
 
  
 function App() {
@@ -11,7 +11,7 @@ function App() {
     < >
       <Navbar/>
       <Routes>
-       <Route  path="/" element={<Products/>}/>
+       <Route  path="/" element={<ProductList/>}/>
         <Route path="/add-product" element={<AddProduct/>}/>
       </Routes>
     </>

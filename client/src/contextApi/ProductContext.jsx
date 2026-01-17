@@ -1,24 +1,22 @@
 import axios from "axios";
-import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext , useState } from "react"; 
 
  
 
-const ProductContext = createContext();
+export const ProductContext = createContext();
 
 export const ProductProvider = ({children}) => {
     
-    const [message, setMessage] = useState("");
-const navigate = useNavigate()
+    const [message, setMessage] = useState("");  
 
-     const addProduct = async (values, { setSubmitting, resetForm }) => {
+    const addProduct = async (formData) => {
         setMessage("");
         try {
-            const response = await axios.post("http://localhost:5000/api/products", values);
+            const response = await axios.post("http://localhost:5000/api/products", formData ,{headers:{"Content-Type":"multipart/form-data"}});
             setMessage("✅ Product added successfully!");
-            console.log("product created:", response.data);
-            resetForm();
-            navigate('/')
+            console.log("product created:", response.data); 
+           
+            
         } catch (error) {
             setMessage("❌ Error: " + (error.response?.data?.message || error.message));
         } finally {
@@ -26,15 +24,8 @@ const navigate = useNavigate()
         }
     };
 
+
      
 const value ={addProduct,message}
     return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
 } 
-
-export const useProductContext =  ()=>{
-    const context = useContext(ProductContext);
-    if(!context){
-        throw new Error("useProductContext must be used within ProductProvider")
-    }
-    return context;
-}

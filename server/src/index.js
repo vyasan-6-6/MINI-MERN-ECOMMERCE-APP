@@ -22,6 +22,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the API' });
 });
 
+//serve images
+
+app.use("/uploads",express.static("uploads"))
+
  
 app.use("/api/products",productRoutes)
  
