@@ -36,13 +36,13 @@ const { upload } = require('../config/multerConfig');
 
  //post product
 
- router.post("/",upload.array("image"),async(req,res)=>{
+ router.post("/",upload.single("image"),async(req,res)=>{
     try {
         const product  = new Product({...req.body
         ,image:req.file? `/uploads/${req.file.filename}` :""
         });
       await  product.save();
-      res.json(product)
+res.status(201).json(product);
     } catch (error) {
         res.status(400).json({message:error.message})
     }

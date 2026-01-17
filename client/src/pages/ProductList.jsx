@@ -1,28 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from "axios"; 
 import { Link } from "react-router-dom";
+import { useProductContext } from "../contextApi/useProductContext";
+
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+   const {error,products,loading,fetchProducts} = useProductContext();
+ 
 
-    const fetchProducts = async () => {
-        try {
-            const response = await axios.get("http://localhost:5000/api/products");
-            setProducts(response.data);
-            console.log(response);
-            console.log(response.data);
-            setError("");
-        } catch (error) {
-            setError("Failed to fetch products:" + error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+    
 
     if (loading) {
         return (
@@ -44,12 +29,7 @@ const ProductList = () => {
             <div>
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-3xl font-bold text-gray-800">Products</h2>
-                    <Link
-                        to="/add-product"
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors"
-                    >
-                        + Add Product
-                    </Link>
+                  
                 </div>
                 {products.length === 0 ? (
                     <div className="text-center py-10">
@@ -61,7 +41,7 @@ const ProductList = () => {
                             <div key={product._id} className="bg-white rounded-lg shadow hover:shadow-lg transition">
                                 {product.image ? (
                                     <img
-                                        src={product.image}
+                                        src={`http://localhost:5000${product.image}`}
                                         className="w-full h-40 object-cover rounded-t-lg"
                                         alt={product.name}
                                     />
@@ -78,9 +58,9 @@ const ProductList = () => {
                                     </div>
 
                                     <div className="flex justify-between mt-4 text-sm">
-                                        <Link to={`/products/${product._id}`} className="text-green-600">
+                                        <span  to={`/products/${product._id}`} className="text-green-600">
                                             View
-                                        </Link>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

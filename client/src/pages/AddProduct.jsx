@@ -76,7 +76,9 @@ const AddProduct = () => {
 
   await addProduct(formData);
   resetForm();
-  navigate("/");
+setTimeout(() => {
+     navigate("/");
+}, 1500);
 }}
 
             >
@@ -186,7 +188,7 @@ const AddProduct = () => {
                             <input
                                 type="file"
                                 name="image"
-                                accept="image/"
+                                accept="image/*"
                                 onChange={(e)=>setFieldValue("image",e.currentTarget.files[0])}
                                 placeholder="Enter image URL (optional)"
                                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
