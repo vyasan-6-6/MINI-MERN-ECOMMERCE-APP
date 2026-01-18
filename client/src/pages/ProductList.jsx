@@ -55,6 +55,7 @@ const ProductList = () => {
 
                                     <div className="mt-2 flex justify-between items-center">
                                         <span className="font-bold text-blue-600">${product.price}</span>
+                                        <span className='text-sm text-gray-500'> ⭐ {product.rating ?? 0} · {product.numReviews ?? 0} reviews</span>
                                     </div>
 
                                     <div className="flex justify-between mt-4 text-sm">
