@@ -16,13 +16,16 @@ export const ProductProvider = ({ children }) => {
     const [keyword, setKeyword] = useState("");
     const [category, setCategory] = useState("");
     const [sort, setSort] = useState("");
+    const [debouncedKeyword, setDebouncedKeyword] = useState(keyword);
 
     const url = "http://localhost:5000/api/products";
 
     const fetchProducts = async (pageNumber = 1) => {
         setLoading(true);
         try {
-            const response = await axios.get(url,{params:{keyword,category,sort,page:pageNumber,limit:6}});
+            const response = await axios.get(url, {
+                params: { keyword: debouncedKeyword, category, sort, page: pageNumber, limit: 6 },
+            });
             setProducts(response.data.products);
             setPage(response.data.page);
             setPages(response.data.pages);
@@ -37,10 +40,17 @@ export const ProductProvider = ({ children }) => {
 
     useEffect(() => {
         fetchProducts(page);
-    }, [location.pathname, page, category, sort, keyword]);
-    useEffect(()=>{
-        setPage(1)
-    },[keyword,sort,category])
+    }, [location.pathname, page, category, sort, debouncedKeyword]);
+    useEffect(() => {
+        setPage(1);
+    }, [keyword, sort, category]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedKeyword(keyword);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [keyword]);
 
     const addProduct = async (formData) => {
         setMessage("");

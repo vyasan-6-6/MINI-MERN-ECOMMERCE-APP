@@ -2,10 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useProductContext } from "../contextApi/useProductContext";
 
 const Navbar = () => {
-    const { setKeyword, keyword, sort, setSort, category, setCategory } = useProductContext();
+    const { setKeyword, keyword, sort, setSort, category, setCategory, setPage } = useProductContext();
     const navigate = useNavigate();
     const handleAddProduct = () => {
         navigate("/add-product");
+    };
+
+    const handleSearch = () => {
+        setPage(1);
     };
     return (
         <nav className="bg-slate-800 text-white shadow-lg sticky top-0 z-50">
@@ -29,24 +33,30 @@ const Navbar = () => {
                         <option value="accessories">Accessories</option>
                     </select>
 
-                    <select value={sort} onChange={(e)=>setCategory(e.target.value)}
-                      className="px-3 py-2 rounded bg-slate-700 text-white focus:outline-none">
+                    <select
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value)}
+                        className="px-3 py-2 rounded bg-slate-700 text-white focus:outline-none"
+                    >
                         <option value="">Sort</option>
                         <option value="price-asc">Price: Low → High</option>
-                        <option value="price-des">Price: High → Low</option>
+                        <option value="price-desc">Price: High → Low</option>
                     </select>
 
                     {/* Right Side - Search Box */}
                     <div className="flex items-center">
                         <div className="relative">
                             <input
-                            value={keyword}
-                            onChange={(e)=>setKeyword(e.target.value)}
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
                                 type="text"
                                 placeholder="Search..."
                                 className="w-64 md:w-80 px-4 py-2 pr-12 rounded-full text-white-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <button className="absolute right-0 top-0 h-full px-4 bg-blue-500 hover:bg-blue-600 rounded-r-full">
+                            <button
+                                onClick={handleSearch}
+                                className="absolute right-0 top-0 h-full px-4 bg-blue-500 hover:bg-blue-600 rounded-r-full"
+                            >
                                 🔍
                             </button>
                         </div>

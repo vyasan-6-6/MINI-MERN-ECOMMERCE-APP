@@ -18,7 +18,7 @@ const { upload } = require('../config/multerConfig');
 
         const sortOption = {};
         if(req.query.sort === "price_asc") sortOption.price =1;
-        if(req.query.sort === "price_dec") sortOption.price =-1;
+        if(req.query.sort === "price_desc") sortOption.price =-1;
 
         const filter  = {...keyword,...category};
 
