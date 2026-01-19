@@ -1,16 +1,20 @@
 import { useProductContext } from "../contextApi/useProductContext";
 import Pagination from "../components/Pagination";
+import ProductSkeleton from "../components/SkeletonLoading";
 
 const ProductPage = () => {
     const { error, products, loading, fetchProducts } = useProductContext();
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="text-2xl text-gray-600">Loading products...</div>
-            </div>
-        );
-    }
+  if (loading) {
+    // Show 8 skeleton cards
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        {Array.from({ length: 8 }).map((_, idx) => (
+          <ProductSkeleton key={idx} />
+        ))}
+      </div>
+    );
+  }
 
     if (error) {
         return (

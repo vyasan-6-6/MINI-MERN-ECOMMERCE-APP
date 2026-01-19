@@ -8,6 +8,11 @@ const Navbar = () => {
         navigate("/add-product");
     };
 
+    const handleSortChange = (value) => {
+  setSort(value);
+};
+
+
     const handleSearch = () => {
         setPage(1);
     };
@@ -35,12 +40,12 @@ const Navbar = () => {
 
                     <select
                         value={sort}
-                        onChange={(e) => setSort(e.target.value)}
+                        onChange={(e) => handleSortChange(e.target.value)}
                         className="px-3 py-2 rounded bg-slate-700 text-white focus:outline-none"
                     >
                         <option value="">Sort</option>
-                        <option value="price-asc">Price: Low → High</option>
-                        <option value="price-desc">Price: High → Low</option>
+                        <option value="price_asc">Price: Low → High</option>
+                        <option value="price_desc">Price: High → Low</option>
                     </select>
 
                     {/* Right Side - Search Box */}

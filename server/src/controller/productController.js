@@ -16,9 +16,9 @@ const getProducts = async (req,res) => {
         const category = typeof req.query.category ==="string" && req.query.category.trim() 
         ? {category:req.query.category}: {};
 
-        const sortOption = {createdAt:-1};
-        if(req.query.sort === "price_asc") {sortOption={price:1}};
-        if(req.query.sort === "price_desc") {sortOption={price:-1}};
+        let sortOption = {createdAt:-1};
+        if(req.query.sort === "price_asc")  sortOption = {price:1};
+        if(req.query.sort === "price_desc")  sortOption = {price:-1};
 
         const filter = {...keyword,...category};
 

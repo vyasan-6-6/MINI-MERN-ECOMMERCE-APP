@@ -37,25 +37,31 @@ export const ProductProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedKeyword(keyword);   
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [keyword]);
+    
+    useEffect(() => {
+        setPage(1);
+    }, [ sort, category,debouncedKeyword]);
 
     useEffect(() => {
         fetchProducts(page);
     }, [location.pathname, page, category, sort, debouncedKeyword]);
-    useEffect(() => {
-        setPage(1);
-    }, [keyword, sort, category]);
+    
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDebouncedKeyword(keyword);
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [keyword]);
 
     const addProduct = async (formData) => {
         setMessage("");
         try {
-            const response = await axios.post(url, formData);
+            const response = await axios.post(url, formData, {
+  headers: { "Content-Type": "multipart/form-data" }
+});
+
             setMessage("✅ Product added successfully!");
             setTimeout(() => {
                 setMessage("");
