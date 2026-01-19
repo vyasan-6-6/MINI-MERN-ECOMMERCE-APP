@@ -24,7 +24,7 @@ export const ProductProvider = ({ children }) => {
         setLoading(true);
         try {
             const response = await axios.get(url, {
-                params: { keyword: debouncedKeyword, category, sort, page: pageNumber, limit: 6 },
+                params: { keyword: debouncedKeyword, category, sort, page: pageNumber, limit: 8 },
             });
             setProducts(response.data.products);
             setPage(response.data.page);

@@ -38,7 +38,7 @@ const ProductPage = () => {
                             <div key={product._id} className="bg-white rounded-lg shadow hover:shadow-lg transition">
                                 {product.image ? (
                                     <img
-                                        src={`http://localhost:5000${product.image}`}
+                                        src={product.image.startsWith("http") ? product.image:`http://localhost:5000${product.image}`}
                                         className="w-full h-40 object-cover rounded-t-lg"
                                         alt={product.name}
                                     />

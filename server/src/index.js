@@ -4,8 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const productRoutes = require("./routes/productRoutes");
-const path = require("path")
+const productRoutes = require("./routes/productRoutes"); 
   
 
 const app = express();
@@ -25,7 +24,7 @@ app.get('/', (req, res) => {
 
 //serve images
 
-app.use("/uploads",express.static(path.join(__dirname,"uploads")))
+app.use("/uploads",express.static("uploads"))
 
  
 app.use("/api/products",productRoutes)
