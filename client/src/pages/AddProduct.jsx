@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useProductContext } from "../contextApi/useProductContext";
+import { useProductContext } from "../contextApi/useProductContext"; 
 
 const productValidationSchema = Yup.object({
     name: Yup.string().required("Name is required.").min(2, "Name must be at least 2 characters"),
@@ -22,7 +22,7 @@ const productValidationSchema = Yup.object({
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    const { addProduct, message } = useProductContext();
+    const { addProduct, message,fetchProducts } = useProductContext();
 
     const initialValues = {
         name: "",
@@ -55,16 +55,26 @@ const AddProduct = () => {
 
                     formData.append("name", values.name);
                     formData.append("price", values.price);
-                    formData.append("description", values.description);
-                    formData.append("rating", values.rating);
-                    formData.append("category", values.category);
-                    formData.append("numReviews", values.numReviews);
-
-                    if (values.image) {
-                        formData.append("image", values.image);
+                    formData.append("description", values.description); 
+                    formData.append("category", values.category); 
+                    
+                    if(values.rating!==""){
+                        formData.append("rating",Number(values.rating));
                     }
 
+                    if(values.numReviews !== ""){
+                        formData.append("numReviews",Number(values.numReviews));
+                    }
+                    
+                    if (!values.image) {
+                       alert("Image is required");
+                       return;
+                    }
+
+                    formData.append("image",values.image)
+
                     await addProduct(formData);
+                    await fetchProducts(1);
                     resetForm();
                     setTimeout(() => {
                         navigate("/");

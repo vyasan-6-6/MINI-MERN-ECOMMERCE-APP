@@ -25,7 +25,8 @@ const productSchema = new mongoose.Schema(
         numReviews: {
             type: Number,
             default: 0,
-            min: [0, "number of reivews cannot be negative"],
+            min: [0, "number of reviews cannot be negative"
+],
         },
         category: {
             type: String,
@@ -33,8 +34,7 @@ const productSchema = new mongoose.Schema(
         },
         image: {
             type: String,
-            required:true,
-            default: "",
+            required: [true, "Product image is required"],
         },
     },
     {

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cloudinary": "^2.9.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
@@ -9,7 +10,6 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-     "seed": "node src/seeder.js"
- 
+    "seed": "node src/seeder.js"
   }
 }

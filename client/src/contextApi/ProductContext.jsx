@@ -55,13 +55,18 @@ export const ProductProvider = ({ children }) => {
     const addProduct = async (formData) => {
         setMessage("");
         try {
-            const response = await axios.post(url, formData, { headers: { "Content-Type": "multipart/form-data" } });
+            const response = await axios.post(url, formData);
             setMessage("✅ Product added successfully!");
+            setTimeout(() => {
+                setMessage("");
+            }, 2000);
+
             return response;
         } catch (error) {
-            setMessage("❌ Error: " + (error.response?.data?.message || error.message));
-            throw error;
-        }
+  setMessage("❌ Error: " + (error.response?.data?.message || error.message));
+  return null; // ✅ don't throw
+}
+
     };
 
     const value = {
