@@ -3,9 +3,9 @@ import Pagination from "../components/Pagination";
 import ProductSkeleton from "../components/SkeletonLoading";
 
 const ProductPage = () => {
-    const { error, products, loading, fetchProducts } = useProductContext();
+    const {state} = useProductContext();
 
-  if (loading) {
+  if (state.loading) {
     // Show 8 skeleton cards
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
@@ -16,10 +16,10 @@ const ProductPage = () => {
     );
   }
 
-    if (error) {
+    if (state.error) {
         return (
             <div className="max-w-7xl mx-auto mt-10 p-6">
-                <div className="bg-red-100 text-red-700 p-4 rounded-lg">{error}</div>
+                <div className="bg-red-100 text-red-700 p-4 rounded-lg">{state.error}</div>
             </div>
         );
     }
@@ -32,13 +32,13 @@ const ProductPage = () => {
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-3xl font-bold text-gray-800">Products</h2>
                 </div>
-                {products.length === 0 ? (
+                {state.products.length === 0 ? (
                     <div className="text-center py-10">
                         <p className="text-gray-600 text-xl">No products found</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {products.map((product) => (
+                        {state.products.map((product) => (
                             <div key={product._id} className="bg-white rounded-lg shadow hover:shadow-lg transition">
                                 {product.image ? (
                                     <img

@@ -1,97 +1,82 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useReducer } from "react";
+import { createContext, useEffect } from "react";
+import { initialState,productReducer } from "./ProuductReducer";
 
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-    const location = useLocation();
-    const [message, setMessage] = useState("");
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [pages, setPages] = useState(1);
-    const [total, setTotal] = useState(1);
-    const [error, setError] = useState("");
-    const [keyword, setKeyword] = useState("");
-    const [category, setCategory] = useState("");
-    const [sort, setSort] = useState("");
-    const [debouncedKeyword, setDebouncedKeyword] = useState(keyword);
+   
+
+    const [state, dispatch] = useReducer(productReducer, initialState);
 
     const url = "http://localhost:5000/api/products";
 
     const fetchProducts = async (pageNumber = 1) => {
-        setLoading(true);
+        dispatch({ type: "FETCH_START" });
         try {
-            const response = await axios.get(url, {
-                params: { keyword: debouncedKeyword, category, sort, page: pageNumber, limit: 8 },
+            const { data } = await axios.get(url, {
+                params: {
+                    keyword: state.debouncedKeyword,
+                    category: state.category,
+                    sort: state.sort,
+                    page: pageNumber,
+                    limit: 8,
+                },
             });
-            setProducts(response.data.products);
-            setPage(response.data.page);
-            setPages(response.data.pages);
-            setTotal(response.data.total);
-            setError("");
+
+            dispatch({ type: "FETCH_SUCCESS", payload: data });
         } catch (error) {
-            setError("Failed to fetch products:" + error.message);
-        } finally {
-            setLoading(false);
+            dispatch({
+                type: "FETCH_ERROR",
+                payload: error.message,
+            });
         }
     };
-    
+
     useEffect(() => {
         const timer = setTimeout(() => {
-            setDebouncedKeyword(keyword);   
+            dispatch({ type: "SET_DEBOUNCED_KEYWORD", payload: state.keyword });
         }, 500);
         return () => clearTimeout(timer);
-    }, [keyword]);
-    
-    useEffect(() => {
-        setPage(1);
-    }, [ sort, category,debouncedKeyword]);
+    }, [state.keyword]);
 
     useEffect(() => {
-        fetchProducts(page);
-    }, [location.pathname, page, category, sort, debouncedKeyword]);
-    
+        dispatch({ type: "SET_PAGE", payload: 1 });
+    }, [state.sort, state.category, state.debouncedKeyword]);
 
+    useEffect(() => {
+        fetchProducts(state.page);
+    }, [state.page, state.category, state.sort, state.debouncedKeyword]);
 
     const addProduct = async (formData) => {
-        setMessage("");
+        dispatch({ type: "SET_MESSAGE", payload: "" });
         try {
-            const response = await axios.post(url, formData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
+            await axios.post(url, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
 
-            setMessage("✅ Product added successfully!");
+            dispatch({
+                type: "SET_MESSAGE",
+                payload: "✅ Product added successfully!",
+            });
             setTimeout(() => {
-                setMessage("");
+                dispatch({ type: "SET_MESSAGE", payload: "" });
             }, 2000);
-
-            return response;
         } catch (error) {
-  setMessage("❌ Error: " + (error.response?.data?.message || error.message));
-  return null; // ✅ don't throw
-}
-
+            dispatch({
+                type: "SET_MESSAGE",
+                payload: "❌ Error: " + (error.response?.data?.message || error.message),
+            });
+            return null; // ✅ don't throw
+        }
     };
 
     const value = {
+        state,
+        dispatch,
         addProduct,
-        message,
-        error,
-        products,
-        loading,
         fetchProducts,
-        page,
-        pages,
-        total,
-        setPage,
-        setKeyword,
-        keyword,
-        sort,
-        setSort,
-        category,
-        setCategory,
     };
     return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 };
