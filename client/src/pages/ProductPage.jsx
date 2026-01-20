@@ -2,6 +2,8 @@ import { useProductContext } from "../contextApi/useProductContext";
 import Pagination from "../components/Pagination";
 import ProductSkeleton from "../components/SkeletonLoading";
 
+
+
 const ProductPage = () => {
     const {state} = useProductContext();
 
@@ -72,6 +74,7 @@ const ProductPage = () => {
                         ))}
                     </div>
                 )}
+                
                 <div className="flex justify-center my-5">
                     <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto">
                         <Pagination />
