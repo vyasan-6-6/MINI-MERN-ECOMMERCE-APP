@@ -22,7 +22,7 @@ const productValidationSchema = Yup.object({
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    const { addProduct, message, fetchProducts, setPage } = useProductContext();
+    const { addProduct,state, fetchProducts } = useProductContext();
 
     const initialValues = {
         name: "",
@@ -37,13 +37,13 @@ const AddProduct = () => {
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">Add Product</h2>
-            {message && (
+            {state.message && (
                 <div
                     className={`mb-4 p-3 rounded ${
-                        message.includes("✅") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+                        state.message.includes("✅") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                     }`}
                 >
-                    {message}
+                    {state.message}
                 </div>
             )}
 

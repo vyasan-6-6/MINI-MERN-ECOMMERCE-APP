@@ -62,7 +62,7 @@ export const ProductProvider = ({ children }) => {
             });
             setTimeout(() => {
                 dispatch({ type: "SET_MESSAGE", payload: "" });
-            }, 2000);
+            }, 1500);
         } catch (error) {
             dispatch({
                 type: "SET_MESSAGE",
