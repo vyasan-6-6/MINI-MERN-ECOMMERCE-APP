@@ -10,6 +10,7 @@ export const initialState = {
     category: "",
     sort: "",
     debouncedKeyword: "",
+    isMobileMenuOpen:false,
 };
 
 export const productReducer = (state, action) => {
@@ -46,6 +47,9 @@ export const productReducer = (state, action) => {
 
     case "SET_CATEGORY":
         return {...state,category:action.payload};
+
+        case "SET_MOBILEOPEN":
+            return {...state,isMobileMenuOpen:action.payload}
 
         default : return state;
         }
