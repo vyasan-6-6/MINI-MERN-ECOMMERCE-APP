@@ -14,16 +14,13 @@ connectDB();
 
 
 // Middleware
-const allowOrigins = [
-"https://mini-mern-ecommerce-app.vercel.app",
-"http://localhost:5173"
+const allowedOrigins = process.env.CLIENT_URL.split(",");
 
-];
 
 app.use(cors({
 origin:function(origin,callback){
   if(!origin) return callback(null,true);
-  if(allowOrigins.includes(origin)){
+  if(allowedOrigins.includes(origin)){
     callback(null,true);
   }else{
     callback(new Error("Not allowed by CORS"));
