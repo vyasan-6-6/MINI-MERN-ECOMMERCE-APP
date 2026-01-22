@@ -15,8 +15,8 @@ connectDB();
 
 // Middleware
 const allowOrigins = [
-"https://mini-mern-ecommerce-app.vercel.app/",
-"   http://localhost:5173/"
+"https://mini-mern-ecommerce-app.vercel.app",
+"http://localhost:5173"
 
 ];
 
