@@ -51,10 +51,12 @@ export const ProductProvider = ({ children }) => {
 
     const addProduct = async (formData) => {
         dispatch({ type: "SET_MESSAGE", payload: "" });
+        
         try {
             await axios.post(url, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
+            
 
             dispatch({
                 type: "SET_MESSAGE",

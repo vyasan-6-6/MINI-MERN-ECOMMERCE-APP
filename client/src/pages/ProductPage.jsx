@@ -6,6 +6,7 @@ import ProductSkeleton from "../components/SkeletonLoading";
 
 const ProductPage = () => {
     const {state} = useProductContext();
+     
 
   if (state.loading) {
     // Show 8 skeleton cards

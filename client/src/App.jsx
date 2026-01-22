@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar"
 import ProductPage from "./pages/ProductPage"
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/ErrorFallback";
-import { useProductContext } from "./contextApi/useProductContext";
 
  
 function App() {
