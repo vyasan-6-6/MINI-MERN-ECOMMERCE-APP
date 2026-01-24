@@ -109,7 +109,7 @@ npm install
 
 **Backend:**
 ```bash
-cd ../server
+cd /server
 npm install
 ```
 
@@ -124,13 +124,13 @@ Create a `.env` file in both `client` and `server` directories with the necessar
 
 **Frontend:**
 ```bash
-cd ../client
+cd /client
 npm run dev
 ```
 
 **Backend:**
 ```bash
-cd ../server
+cd /server
 npm run dev
 ```
 
@@ -152,8 +152,8 @@ npm run dev
 
 ## 🌐 Live Demo
 
-- **Frontend:** [Deployment Link](#https://mini-mern-ecommerce-app.vercel.app)
-- **Backend API:** [API Link](#https://mini-mern-ecommerce-app.onrender.com)
+- **Frontend:** [Deployment Link](https://mini-mern-ecommerce-app.vercel.app)
+- **Backend API:** [API Link](https://mini-mern-ecommerce-app.onrender.com)
 
 ---
 
