@@ -185,4 +185,4 @@ Contributors are welcome! Feel free to fork the repository and submit a pull req
 
 **VYASAN K S**  
 Full-Stack Developer  
-[LinkedIn: VYASAN K S](www.linkedin.com/in/vyasanks)
+[LinkedIn: VYASAN K S](https://www.linkedin.com/in/vyasanks/)
