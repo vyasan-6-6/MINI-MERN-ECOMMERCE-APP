@@ -170,9 +170,7 @@ Feel free to fork the repository and submit a pull request.
 ---
 ## 👨‍💻 Author
 
-**Vyasank S K S**  
+**VYASAN K S**  
 Full-Stack Developer  
 
-- LinkedIn: [Vyasank S K S](https://www.linkedin.com/in/vyasanks)
-
-
+- LinkedIn: [VYASAN K S](https://www.linkedin.com/in/vyasan-6-6)
