@@ -19,7 +19,7 @@ const ProductPage = () => {
     );
   }
 
-    if (state.error) {
+    if (state.error){
         return (
             <div className="max-w-7xl mx-auto mt-10 p-6">
                 <div className="bg-red-100 text-red-700 p-4 rounded-lg">{state.error}</div>

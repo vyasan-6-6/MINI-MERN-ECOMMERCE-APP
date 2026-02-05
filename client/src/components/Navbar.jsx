@@ -1,10 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useProductContext } from "../contextApi/useProductContext";
 
 const Navbar = () => {
   const { state, dispatch } = useProductContext();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const showBtn = location.pathname.startsWith("/add-product");
+  
+ 
   const toggleMobileMenu = () => {
     dispatch({ type: "SET_MOBILEOPEN", payload: !state.isMobileMenuOpen });
   };
@@ -58,18 +61,26 @@ const Navbar = () => {
               }
               type="text"
               placeholder="Search..."
-              className="w-64 px-4 py-2 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-64 px-4 py-2 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <button
+          { !showBtn ?  <button
               onClick={() => navigate("/add-product")}
               className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 rounded-lg font-medium transition-colors duration-200"
             >
               <span className="text-xl">+</span>
               <span className="hidden sm:inline">Add Product</span>
-            </button>
+            </button> :
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium transition-colors duration-200"
+            >
+             
+              <span>Back to Home</span>
+            </button> }
+          
           </div>
-
+              
           {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center">
             <button onClick={toggleMobileMenu} className="focus:outline-none">
@@ -135,16 +146,24 @@ const Navbar = () => {
               }
               type="text"
               placeholder="Search..."
-              className="w-full px-4 py-2 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <button
+           { !showBtn ? <button
               onClick={() => navigate("/add-product")}
               className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 rounded-lg font-medium transition-colors duration-200"
             >
               <span className="text-xl">+</span>
               <span>Add Product</span>
-            </button>
+            </button> :<button
+              onClick={() => navigate("/")}
+             className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium transition-colors duration-200"
+             >
+             
+              <span>Back to Home</span>
+            </button> }
+
+         
           </div>
         )}
       </div>

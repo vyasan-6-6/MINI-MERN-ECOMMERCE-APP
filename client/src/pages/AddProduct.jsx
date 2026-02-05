@@ -23,7 +23,7 @@ const productValidationSchema = Yup.object({
 const AddProduct = () => {
     const navigate = useNavigate();
     const { addProduct,state, fetchProducts } = useProductContext();
-
+   
     const initialValues = {
         name: "",
         description: "",

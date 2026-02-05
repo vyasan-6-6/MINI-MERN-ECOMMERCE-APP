@@ -10,8 +10,8 @@ export const ProductProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(productReducer, initialState);
 
-    const url =`${import.meta.env.VITE_API_URL}/api/products`;
-
+      const url =`${import.meta.env.VITE_API_URL}/api/products`;
+     
     const fetchProducts = async (pageNumber = 1) => {
         dispatch({ type: "FETCH_START" });
         try {
